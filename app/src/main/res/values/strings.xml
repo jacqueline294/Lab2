@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Lab Project 2</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_activity_sign_up2">SignUpActivity2</string>
+    <string name="title_activity_about">AboutActivity</string>
+    <string name="title_activity_logged2">LoggedActivity2</string>
+</resources>
