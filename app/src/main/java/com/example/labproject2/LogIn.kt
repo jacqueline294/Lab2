@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,9 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun SignUp(){
-
-
+fun LogIn(){
     Column (
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -32,41 +31,43 @@ fun SignUp(){
             .fillMaxSize()
             .background(color = Color.White)
 
-    ){
-        Image(painter = painterResource(id = R.drawable.safari), contentDescription = "Logo",)
+    ) {
+        Image(painter = painterResource(id = R.drawable.safari), contentDescription = "logIn Logo")
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(40.dp))
 
-        Text(text = "Welcome Sign up Here", style = TextStyle(fontFamily = FontFamily.Cursive),
+        Text(
+            text = "LOG IN", style = TextStyle(fontFamily = FontFamily.Cursive),
             fontSize = 32.sp,
-            fontWeight= FontWeight.Bold
+            fontWeight = FontWeight.Bold
         )
 
-        Spacer(modifier = Modifier.height(5.dp))
+        Spacer(modifier = Modifier.height(20.dp))
 
         OutlinedTextField(value = "", onValueChange = {}, label = {
             Text(text = " Name")
         })
-        Spacer(modifier = Modifier.height(4.dp))
+        Spacer(modifier = Modifier.height(5.dp))
 
         OutlinedTextField(value = "", onValueChange = {}, label = {
-            Text(text = "Email Address")
-        })
-        Spacer(modifier = Modifier.height(4.dp))
-
-        OutlinedTextField(value = "", onValueChange = {}, label = {
-            Text(text = "Create Password")
+            Text(text = "Enter Password")
         })
 
         Spacer(modifier = Modifier.height(30.dp))
 
         Button(onClick = { }) {
-            Text(text = "Sign Up")
+            Text(text = "Log In")
 
 
+        }
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        TextButton(onClick = { }) {
+            Text(text = "Forgot Password")
+
+
+        }
     }
-
-    }
-
 
 }
