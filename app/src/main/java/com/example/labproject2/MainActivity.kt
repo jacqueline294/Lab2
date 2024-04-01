@@ -25,8 +25,12 @@ class MainActivity : ComponentActivity() {
         setContent {
             SignUp()
             LogIn()
+            HomePage()
+            StartPage()
 
         }
     }
 }
+
+
 
