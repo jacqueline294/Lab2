@@ -20,10 +20,11 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 
 @Composable
-fun StartPage() {
-    // Define the gradient
+fun StartPage(navController: NavHostController) {
+
     val gradient = Brush.horizontalGradient(
         colors = listOf(Color.Yellow, Color.Cyan),
         startX = 0f,
@@ -51,12 +52,12 @@ fun StartPage() {
         )
         Spacer(modifier = Modifier.height(40.dp))
 
-        Button(onClick = { }) {
+        Button(onClick = { navController.navigate(Routes.Screen.SignUp.route) }) {
             Text(text = "Sign Up")
         }
         Spacer(modifier = Modifier.height(5.dp))
 
-        Button(onClick = { }) {
+        Button(onClick = {navController.navigate(Routes.Screen.SignUp.route)}) {
             Text(text = "Log In")
         }
     }

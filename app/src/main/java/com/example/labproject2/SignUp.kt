@@ -11,6 +11,8 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -21,9 +23,10 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 
 @Composable
-fun SignUp(){
+fun SignUp(navController: NavController){
 
     val gradient = Brush.horizontalGradient(
         colors = listOf(Color.Yellow, Color.Cyan),
@@ -37,10 +40,9 @@ fun SignUp(){
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier= Modifier
             .fillMaxSize()
-            .background(color = Color.White)
-
+            .background(brush = gradient)
     ){
-        Image(painter = painterResource(id = R.drawable.safari), contentDescription = "Logo",)
+        Image(painter = painterResource(id = R.drawable.safari), contentDescription = "Logo")
 
         Spacer(modifier = Modifier.height(20.dp))
 
@@ -51,29 +53,31 @@ fun SignUp(){
 
         Spacer(modifier = Modifier.height(5.dp))
 
-        OutlinedTextField(value = "", onValueChange = {}, label = {
-            Text(text = " Name")
+        val name = remember { mutableStateOf("") }
+        OutlinedTextField(value = name.value, onValueChange = { name.value = it }, label = {
+            Text(text = "Name")
         })
         Spacer(modifier = Modifier.height(4.dp))
 
-        OutlinedTextField(value = "", onValueChange = {}, label = {
+        val email = remember { mutableStateOf("") }
+        OutlinedTextField(value = email.value, onValueChange = { email.value = it }, label = {
             Text(text = "Email Address")
         })
         Spacer(modifier = Modifier.height(4.dp))
 
-        OutlinedTextField(value = "", onValueChange = {}, label = {
+        val password = remember { mutableStateOf("") }
+        OutlinedTextField(value = password.value, onValueChange = { password.value = it }, label = {
             Text(text = "Create Password")
         })
 
         Spacer(modifier = Modifier.height(30.dp))
 
-        Button(onClick = { }) {
+        Button(onClick = { handleFormSubmission(name.value, email.value, password.value, navController) }) {
             Text(text = "Sign Up")
-
-
+        }
     }
-
-    }
-
-
+}
+fun handleFormSubmission(name: String, email: String, password: String, navController: NavController) {
+    println("Name: $name, Email: $email, Password: $password")
+    navController.navigate(Routes.Screen.Login.route)
 }

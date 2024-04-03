@@ -22,24 +22,28 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 
 @Composable
-fun LogIn(){
+fun LogIn(navController: NavController){
 
-    val gradient = Brush.horizontalGradient(
+    val gradient=Brush.horizontalGradient(
         colors = listOf(Color.Yellow, Color.Cyan),
         startX = 0f,
         endX = 1000f
     )
+
     Column (
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier= Modifier
             .fillMaxSize()
-            .background(color = Color.White)
+            .background(brush = gradient )
 
     ) {
-        Image(painter = painterResource(id = R.drawable.safari), contentDescription = "logIn Logo")
+        Image(painter = painterResource(id = R.drawable.safari),
+            contentDescription = "logIn Logo")
+
 
         Spacer(modifier = Modifier.height(40.dp))
 
@@ -52,7 +56,7 @@ fun LogIn(){
         Spacer(modifier = Modifier.height(20.dp))
 
         OutlinedTextField(value = "", onValueChange = {}, label = {
-            Text(text = " Name")
+            Text(text = " Enter Name")
         })
         Spacer(modifier = Modifier.height(5.dp))
 
@@ -62,19 +66,13 @@ fun LogIn(){
 
         Spacer(modifier = Modifier.height(30.dp))
 
-        Button(onClick = { }) {
+        Button(onClick = { navController.navigate(Routes.Screen.Home.route)}) {
             Text(text = "Log In")
 
 
         }
 
-        Spacer(modifier = Modifier.height(10.dp))
 
-        TextButton(onClick = { }) {
-            Text(text = "Forgot Password")
-
-
-        }
     }
 
 }
