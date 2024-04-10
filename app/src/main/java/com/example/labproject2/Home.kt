@@ -62,7 +62,7 @@ fun HomePage(navController: NavController) {
                         painter = painterResource(id = picture.drawableId),
                         contentDescription = picture.description,
                         modifier = Modifier
-                            .height(100.dp)
+                            .height(150.dp)
                             .fillMaxWidth()
                     )
                     Button(
