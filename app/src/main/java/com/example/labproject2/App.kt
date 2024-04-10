@@ -36,7 +36,7 @@ fun StartPage(navController: NavHostController) {
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxSize()
-            .background(brush = gradient) // Apply the gradient as the background
+            .background(brush = gradient)
     ) {
         Image(painter = painterResource(id = R.drawable.safari), contentDescription = "HomePage")
 
@@ -57,7 +57,7 @@ fun StartPage(navController: NavHostController) {
         }
         Spacer(modifier = Modifier.height(5.dp))
 
-        Button(onClick = {navController.navigate(Routes.Screen.SignUp.route)}) {
+        Button(onClick = {navController.navigate(Routes.Screen.Login.route)}) {
             Text(text = "Log In")
         }
     }

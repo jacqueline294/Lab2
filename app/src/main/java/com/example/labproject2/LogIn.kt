@@ -10,8 +10,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -20,59 +21,77 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
 @Composable
-fun LogIn(navController: NavController){
-
-    val gradient=Brush.horizontalGradient(
+fun Login(navController: NavController) {
+    val gradient = Brush.horizontalGradient(
         colors = listOf(Color.Yellow, Color.Cyan),
         startX = 0f,
         endX = 1000f
     )
 
-    Column (
+    Column(
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier= Modifier
+        modifier = Modifier
             .fillMaxSize()
-            .background(brush = gradient )
-
+            .background(brush = gradient)
     ) {
-        Image(painter = painterResource(id = R.drawable.safari),
-            contentDescription = "logIn Logo")
-
-
-        Spacer(modifier = Modifier.height(40.dp))
-
-        Text(
-            text = "LOG IN", style = TextStyle(fontFamily = FontFamily.Cursive),
-            fontSize = 32.sp,
-            fontWeight = FontWeight.Bold
+        Image(
+            painter = painterResource(id = R.drawable.safari),
+            contentDescription = "Logo"
         )
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        OutlinedTextField(value = "", onValueChange = {}, label = {
-            Text(text = " Enter Name")
-        })
+        Text(
+            text = "Welcome, Please Log in",
+            style = TextStyle(fontFamily = FontFamily.Cursive),
+            fontSize = 32.sp,
+            fontWeight = FontWeight.Bold
+        )
+
         Spacer(modifier = Modifier.height(5.dp))
 
-        OutlinedTextField(value = "", onValueChange = {}, label = {
-            Text(text = "Enter Password")
+        val email = remember { mutableStateOf("") }
+        OutlinedTextField(value = email.value, onValueChange = { email.value = it }, label = {
+            Text(text = "Email Address")
         })
+        Spacer(modifier = Modifier.height(4.dp))
 
-        Spacer(modifier = Modifier.height(30.dp))
+        val password = remember { mutableStateOf("") }
+        OutlinedTextField(
+            value = password.value,
+            onValueChange = { password.value = it },
+            label = { Text(text = "Password") },
+            visualTransformation = PasswordVisualTransformation()
+        )
 
-        Button(onClick = { navController.navigate(Routes.Screen.Home.route)}) {
+        Spacer(modifier = Modifier.height(8.dp))
+
+        val errorMessage = remember { mutableStateOf("") }
+        Text(
+            text = errorMessage.value,
+            color = Color.Red,
+            style = TextStyle(fontSize = 14.sp)
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Button(onClick = {
+            if (isValidCredentials(email.value, password.value)) {
+                navController.navigate(Routes.Screen.Home.route)
+            } else {
+                errorMessage.value = "Invalid email or password. Please try again."
+            }
+        }) {
             Text(text = "Log In")
-
-
-        }
-
-
     }
-
 }
+}
+
+

@@ -1,15 +1,10 @@
-package com.example.labproject2
-
-
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -20,10 +15,14 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
+import androidx.navigation.NavController
+import com.example.labproject2.R
+import com.example.labproject2.ui.theme.pictures
 
 @Composable
-fun HomePage(navController: NavHostController) {
+fun HomePage(navController: NavController) {
+    var showPopup by remember { mutableStateOf(false) }
+
     val gradient = Brush.horizontalGradient(
         colors = listOf(Color.Yellow, Color.Cyan),
         startX = 0f,
@@ -34,17 +33,61 @@ fun HomePage(navController: NavHostController) {
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Color.White)
-
+            .background(brush = gradient)
     ) {
-        Image(painter = painterResource(id = R.drawable.safari), contentDescription = "logIn Logo")
+        Image(
+            painter = painterResource(id = R.drawable.safari),
+            contentDescription = "home logo",
+            modifier = Modifier.padding(8.dp)
+        )
 
         Spacer(modifier = Modifier.height(40.dp))
 
         Text(
-            text = "WELCOME", style = TextStyle(fontFamily = FontFamily.Cursive),
+            text = "WELCOME",
+            style = TextStyle(fontFamily = FontFamily.Cursive),
             fontSize = 32.sp,
             fontWeight = FontWeight.Bold
+        )
+
+        LazyColumn(
+            modifier = Modifier.fillMaxSize(1f),
+            contentPadding = PaddingValues(horizontal = 8.dp, vertical = 8.dp),
+            verticalArrangement = Arrangement.spacedBy(10.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            items(pictures) { picture ->
+                Column {
+                    Image(
+                        painter = painterResource(id = picture.drawableId),
+                        contentDescription = picture.description,
+                        modifier = Modifier
+                            .height(100.dp)
+                            .fillMaxWidth()
+                    )
+                    Button(
+                        onClick = { showPopup = true },
+                        modifier = Modifier.align(Alignment.CenterHorizontally)
+                    ) {
+                        Text("Book Now")
+                    }
+                }
+            }
+        }
+    }
+
+    if (showPopup) {
+        AlertDialog(
+            onDismissRequest = { showPopup = false },
+            title = { Text("Confirmation") },
+            text = { Text("Your activity is booked.") },
+            confirmButton = {
+                Button(
+                    onClick = { showPopup = false }
+                ) {
+                    Text("OK")
+                }
+            }
         )
     }
 }
